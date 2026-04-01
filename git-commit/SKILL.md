@@ -2,8 +2,8 @@
 name: git-commit
 description: 代码提交规范和流程
 metadata:
-  author: wangyanchen
-  version: 1.1
+  author: ddd-xw
+  version: 2.0
 ---
 
 ## 代码提交规范
@@ -15,9 +15,9 @@ metadata:
 
 ### 示例
 ```
-[ZX30][wangyanchen][consumerir hal use lirc 20260330][1/3]
-[ZX30][wangyanchen][pwm-ir-tx use new pwm api 20260330][2/3]
-[ZX30][wangyanchen][add pwm-ir device tree 20260330][3/3]
+[MyProject][yourname][consumerir hal use lirc 20260330][1/3]
+[MyProject][yourname][pwm-ir-tx use new pwm api 20260330][2/3]
+[MyProject][yourname][add pwm-ir device tree 20260330][3/3]
 ```
 
 ### 描述规范
@@ -124,7 +124,7 @@ git stash pop
 ### 推送问题排查
 
 #### `repo upload` 失败处理
-`repo upload` 可能配置了错误的远程服务器（如 codeaurora.org 已失效），导致 HTTP 404 错误。
+`repo upload` 可能配置了错误的远程服务器，导致 HTTP 404 错误。
 
 **解决方案：直接使用 `git push` 推送到已配置的 Gerrit 服务器**
 
@@ -133,7 +133,7 @@ git stash pop
 git push <remote> HEAD:refs/for/<branch>
 
 # 示例
-git push caf HEAD:refs/for/ZX30
+git push origin HEAD:refs/for/main
 ```
 
 > **注意：** 不要直接推送到分支（`git push <remote> <branch>`），Gerrit 会拒绝。必须使用 `refs/for/<branch>` 进行代码审查。

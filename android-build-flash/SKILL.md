@@ -2,15 +2,15 @@
 name: android-build-flash
 description: Android 项目通用编译和刷入流程
 metadata:
-  author: wangyanchen
-  version: 1.0
+  author: ddd-xw
+  version: 2.0
 ---
 
 ## Android 项目通用编译和刷入流程
 
 ### 编译环境
 - 平台：Android 12+，高通平台
-- 典型项目：ZX30、SM10L、P1117、DIVAR 等
+- 典型项目：根据实际项目替换路径和脚本名
 
 ---
 
@@ -18,15 +18,13 @@ metadata:
 
 ### 目录
 ```bash
-cd LA.QSSI.15.0/LINUX/android
-# 或
-cd LA.QSSI.12.0.r1/android
+cd LA.QSSI.<版本>/LINUX/android
 ```
 
 ### 方法 1：手动编译
 ```bash
 source build/envsetup.sh
-lunch qssi-userdebug false row WW EX01
+lunch <product>-userdebug false row WW EX01
 bash build.sh -j8 dist --qssi_only | tee qssi_makelog_$(date +%Y%m%d_%H%M%S).txt
 ```
 
@@ -41,16 +39,16 @@ bash build.sh -j8 dist --qssi_only | tee qssi_makelog_$(date +%Y%m%d_%H%M%S).txt
 
 ### 目录
 ```bash
-cd LA.VENDOR.13.2.1.r1/LINUX/android
+cd LA.VENDOR.<版本>/LINUX/android
 # 或
-cd LA.UM.9.15.r1/LINUX/android
+cd LA.UM.<版本>/LINUX/android
 ```
 
 ### 方法 1：手动编译
 ```bash
 source build/envsetup.sh
-lunch bengal_515-userdebug false row WW EX01
-./kernel_platform/build/android/prepare_vendor.sh bengal gki < /dev/null | tee prepare_vendor_$(date +%Y%m%d_%H%M%S).log
+lunch <product>-userdebug false row WW EX01
+./kernel_platform/build/android/prepare_vendor.sh <product> gki < /dev/null | tee prepare_vendor_$(date +%Y%m%d_%H%M%S).log
 bash build.sh -j8 dist --target_only | tee build_vendor_$(date +%Y%m%d_%H%M%S).log
 ```
 
@@ -78,9 +76,7 @@ bash build.sh -j8 dist --target_only | tee build_vendor_$(date +%Y%m%d_%H%M%S).l
 ## 四、编译 BP（Baseband Processor）
 
 ```bash
-./build_target_all_divar.sh
-# 或
-./build_target_all_kamorta.sh
+./build_target_all_<项目>.sh
 ```
 
 ---
@@ -88,9 +84,7 @@ bash build.sh -j8 dist --target_only | tee build_vendor_$(date +%Y%m%d_%H%M%S).l
 ## 五、Release 版本
 
 ```bash
-./release_image_divar.sh
-# 或
-./release_image_kamorta.sh
+./release_image_<项目>.sh
 ```
 
 ---
@@ -149,7 +143,7 @@ fastboot flashall
 ## 增量编译（修改少时用）
 
 ```bash
-cd LA.VENDOR.13.2.1.r1/LINUX/android
+cd LA.VENDOR.<版本>/LINUX/android
 source build/envsetup.sh
 lunch <product>-userdebug
 make bootimage -j4      # 编译内核+设备树
@@ -184,3 +178,5 @@ adb reboot bootloader
 3. 刷入后建议清除缓存：`fastboot erase cache`
 4. 不同项目的目录名称可能不同，但编译流程基本一致
 5. `<product>` 为具体产品名，如 `bengal`、`bengal_515` 等
+6. `<版本>` 为实际 SDK 版本号，如 `15.0`、`12.0.r1` 等
+7. `<项目>` 为实际项目名称，根据项目替换对应脚本

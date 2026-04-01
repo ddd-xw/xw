@@ -30,10 +30,12 @@ clone.bat facebook/react microsoft/vscode nodejs/node
 ## 目录结构
 
 ```
-E:\git/
+.
 ├── clone.bat          # 主脚本
 ├── config.txt         # 配置文件 (Token 等)
 ├── config.example.txt # 配置模板
 ├── repos/             # 克隆的仓库存放目录
+├── android-build-flash/  # Android 编译刷写 skill
+├── git-commit/        # Git 提交规范 skill
 └── README.md
 ```
